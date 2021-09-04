@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<LangVersion>9.0</LangVersion>
+		<!--<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\GeneratedFiles</CompilerGeneratedFilesOutputPath>-->
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ClassLibrary1\ClassLibrary1.csproj"
+		                  OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+	</ItemGroup>
+	<PropertyGroup>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+	</PropertyGroup>
+	<Target Name="AddSourceGeneratedFiles" AfterTargets="CoreCompile">
+		<ItemGroup>
+			<Compile Include="Generated\**" />
+		</ItemGroup>
+	</Target>
+	<Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile">
+		<ItemGroup>
+			<Compile Remove="Generated\**" />
+		</ItemGroup>
+	</Target>
+	<Target Name="CleanSourceGeneratedFiles" AfterTargets="Clean">
+		<RemoveDir Directories="Generated" />
+	</Target>
+</Project>
